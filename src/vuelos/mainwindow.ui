@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>777</width>
+    <height>566</height>
+   </rect>
+  </property>
+  <property name="cursor">
+   <cursorShape>PointingHandCursor</cursorShape>
+  </property>
+  <property name="windowTitle">
+   <string>Reserva de vuelos</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="image">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>-10</y>
+      <width>431</width>
+      <height>591</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="instructions">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>10</y>
+      <width>351</width>
+      <height>231</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Tlwg Typewriter</family>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;📌 Instrucciones de uso:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;1️⃣ Selecciona tu ciudad de partida.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;2️⃣ Si no está en la lista, agrégala &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;manualmente al hacer doble click.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;3️⃣ Elige tu ciudad de destino.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;4️⃣ Haz clic en &amp;quot;Calcular ruta óptima&amp;quot; &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;para encontrar el mejor camino.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="button">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>290</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Calcular ruta óptima</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="zoominbutton">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>10</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../../Downloads/WhatsApp Image 2025-02-24 at 3.53.30 PM(1).jpeg</normaloff>../../../Downloads/WhatsApp Image 2025-02-24 at 3.53.30 PM(1).jpeg</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="zoomoutbutton">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>10</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../../Downloads/WhatsApp Image 2025-02-24 at 3.53.30 PM.jpeg</normaloff>../../../Downloads/WhatsApp Image 2025-02-24 at 3.53.30 PM.jpeg</iconset>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>777</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
