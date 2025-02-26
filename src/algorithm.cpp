@@ -47,6 +47,7 @@ vector<int> dijkstra(const unordered_map<int, vector<pii>>& graph, int start, in
         path.push_back(at);
     }
     path.push_back(start); // Agregar el nodo de inicio al camino
+    reverse(path.begin(), path.end()); // Invertir el camino para obtenerlo desde el inicio hasta el final
 
     return path; // Devolver el camino más corto
 }
