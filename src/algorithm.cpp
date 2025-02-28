@@ -1,53 +1,70 @@
-#include <iostream>
-#include <vector>
+#include "graphs.h"
 #include <queue>
 #include <unordered_map>
-#include <climits>
+#include <vector>
+#include <string>
+#include <limits>
 #include <algorithm>
 
 using namespace std;
 
-typedef pair<int, int> pii;
+vector<string> dijkstra(const Graph& graph, const string& start, const string& finish) {
+    // Mapa para almacenar la distancia mínima desde el nodo de inicio a cada nodo
+    unordered_map<string, double> dist;
 
-vector<int> dijkstra(const unordered_map<int, vector<pii>>& graph, int start, int end) {
-    unordered_map<int, int> dist; // Almacena la distancia más corta desde el inicio a cada nodo
-    unordered_map<int, int> prev; // Almacena el nodo anterior en el camino óptimo desde el inicio
-    priority_queue<pii, vector<pii>, greater<pii>> pq; // Cola de prioridad de min-heap para seleccionar el nodo con la distancia más pequeña
+    // Mapa para almacenar el nodo previo en el camino más corto
+    unordered_map<string, string> prev;
+    
+    // Cola de prioridad para seleccionar el nodo con la distancia mínima
+    priority_queue<pair<double, string>, vector<pair<double, string>>, greater<>> pq;
 
-    // Inicializar distancias a todos los nodos como infinito
-    for (const auto& node : graph) {
-        dist[node.first] = INT_MAX;
+    // Inicializar las distancias a infinito y los nodos previos a una cadena vacía
+    for (const auto& pair : graph.obtenerCiudades()) {
+        dist[pair.first] = numeric_limits<double>::infinity();
+        prev[pair.first] = "";
     }
-    dist[start] = 0; // La distancia al nodo de inicio es 0
-    pq.push({0, start}); // Empujar el nodo de inicio a la cola de prioridad
 
+    // La distancia al nodo de inicio es 0
+    dist[start] = 0.0;
+    // Insertar el nodo de inicio en la cola de prioridad
+    pq.push({0.0, start});
+
+    // Mientras la cola de prioridad no esté vacía
     while (!pq.empty()) {
-        int currentNode = pq.top().second; // Obtener el nodo con la distancia más pequeña
+        // Obtener el nodo con la distancia mínima
+        auto [currentDist, current] = pq.top();
         pq.pop();
 
-        if (currentNode == end) break; // Si llegamos al nodo final, detener
+        // Si hemos llegado al nodo de destino, terminamos
+        if (current == finish) break;
 
-        // Explorar todos los vecinos del nodo actual
-        for (const auto& neighbor : graph.at(currentNode)) {
-            int neighborNode = neighbor.first; // Nodo vecino
-            int edgeWeight = neighbor.second; // Peso del borde al vecino
-
-            int alternativePathDistance = dist[currentNode] + edgeWeight; // Calcular la distancia del camino alternativo
-            if (alternativePathDistance < dist[neighborNode]) { // Si el camino alternativo es más corto
-                dist[neighborNode] = alternativePathDistance; // Actualizar la distancia más corta al vecino
-                prev[neighborNode] = currentNode; // Actualizar el nodo anterior en el camino
-                pq.push({alternativePathDistance, neighborNode}); // Empujar el vecino a la cola de prioridad
+        // Explorar las conexiones del nodo actual
+        for (const auto& flight : graph.obtenerCiudades().at(current).conexiones) {
+            // Calcular la nueva distancia
+            double newDist = currentDist + flight.peso;
+            // Si la nueva distancia es menor que la distancia almacenada
+            if (newDist < dist[flight.destino]) {
+                // Actualizar la distancia y el nodo previo
+                dist[flight.destino] = newDist;
+                prev[flight.destino] = current;
+                // Insertar el nodo destino en la cola de prioridad
+                pq.push({newDist, flight.destino});
             }
         }
     }
 
-    vector<int> path; // Para almacenar el camino más corto
-    // Reconstruir el camino desde el final hasta el inicio usando el mapa prev
-    for (int at = end; at != start; at = prev[at]) {
+    // Construir el camino más corto desde el nodo de destino al nodo de inicio
+    vector<string> path;
+    for (string at = finish; !at.empty(); at = prev[at]) {
         path.push_back(at);
     }
-    path.push_back(start); // Agregar el nodo de inicio al camino
-    reverse(path.begin(), path.end()); // Invertir el camino para obtenerlo desde el inicio hasta el final
+    // Invertir el camino para obtener el orden correcto
+    reverse(path.begin(), path.end());
 
-    return path; // Devolver el camino más corto
+    // Si el camino contiene solo un nodo y no es el nodo de inicio, no se encontró un camino
+    if (path.size() == 1 && path[0] != start) {
+        return {}; // No path found
+    }
+
+    return path;
 }
