@@ -10,8 +10,8 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
-#include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
@@ -26,10 +26,11 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QLabel *image;
-    QLabel *instructions;
     QPushButton *button;
-    QPushButton *zoominbutton;
-    QPushButton *zoomoutbutton;
+    QComboBox *comboBox;
+    QLabel *label;
+    QLabel *label_2;
+    QComboBox *comboBox_2;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -43,30 +44,23 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         image = new QLabel(centralwidget);
         image->setObjectName(QString::fromUtf8("image"));
-        image->setGeometry(QRect(0, -10, 431, 591));
+        image->setGeometry(QRect(10, 70, 761, 471));
         image->setScaledContents(true);
-        instructions = new QLabel(centralwidget);
-        instructions->setObjectName(QString::fromUtf8("instructions"));
-        instructions->setGeometry(QRect(440, 10, 351, 231));
-        QFont font;
-        font.setFamily(QString::fromUtf8("Tlwg Typewriter"));
-        instructions->setFont(font);
-        instructions->setLayoutDirection(Qt::LeftToRight);
         button = new QPushButton(centralwidget);
         button->setObjectName(QString::fromUtf8("button"));
-        button->setGeometry(QRect(520, 290, 161, 41));
-        zoominbutton = new QPushButton(centralwidget);
-        zoominbutton->setObjectName(QString::fromUtf8("zoominbutton"));
-        zoominbutton->setGeometry(QRect(0, 10, 31, 31));
-        QIcon icon;
-        icon.addFile(QString::fromUtf8("../../../Downloads/WhatsApp Image 2025-02-24 at 3.53.30 PM(1).jpeg"), QSize(), QIcon::Normal, QIcon::Off);
-        zoominbutton->setIcon(icon);
-        zoomoutbutton = new QPushButton(centralwidget);
-        zoomoutbutton->setObjectName(QString::fromUtf8("zoomoutbutton"));
-        zoomoutbutton->setGeometry(QRect(30, 10, 31, 31));
-        QIcon icon1;
-        icon1.addFile(QString::fromUtf8("../../../Downloads/WhatsApp Image 2025-02-24 at 3.53.30 PM.jpeg"), QSize(), QIcon::Normal, QIcon::Off);
-        zoomoutbutton->setIcon(icon1);
+        button->setGeometry(QRect(610, 10, 161, 41));
+        comboBox = new QComboBox(centralwidget);
+        comboBox->setObjectName(QString::fromUtf8("comboBox"));
+        comboBox->setGeometry(QRect(10, 40, 291, 21));
+        label = new QLabel(centralwidget);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setGeometry(QRect(10, 10, 131, 21));
+        label_2 = new QLabel(centralwidget);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+        label_2->setGeometry(QRect(310, 10, 131, 21));
+        comboBox_2 = new QComboBox(centralwidget);
+        comboBox_2->setObjectName(QString::fromUtf8("comboBox_2"));
+        comboBox_2->setGeometry(QRect(310, 40, 291, 21));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -85,10 +79,9 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Reserva de vuelos", nullptr));
         image->setText(QString());
-        instructions->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-size:14pt; font-weight:600;\">\360\237\223\214 Instrucciones de uso:</span></p><p align=\"justify\">1\357\270\217\342\203\243 Selecciona tu ciudad de partida.</p><p align=\"justify\">2\357\270\217\342\203\243 Si no est\303\241 en la lista, agr\303\251gala </p><p align=\"justify\">manualmente al hacer doble click.</p><p align=\"justify\">3\357\270\217\342\203\243 Elige tu ciudad de destino.</p><p align=\"justify\">4\357\270\217\342\203\243 Haz clic en &quot;Calcular ruta \303\263ptima&quot; </p><p align=\"justify\">para encontrar el mejor camino.</p></body></html>", nullptr));
         button->setText(QCoreApplication::translate("MainWindow", "Calcular ruta \303\263ptima", nullptr));
-        zoominbutton->setText(QString());
-        zoomoutbutton->setText(QString());
+        label->setText(QCoreApplication::translate("MainWindow", "Ciudad de origen:", nullptr));
+        label_2->setText(QCoreApplication::translate("MainWindow", "Ciudad destino:", nullptr));
     } // retranslateUi
 
 };

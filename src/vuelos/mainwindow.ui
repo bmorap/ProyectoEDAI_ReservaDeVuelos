@@ -20,10 +20,10 @@
    <widget class="QLabel" name="image">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>-10</y>
-      <width>431</width>
-      <height>591</height>
+      <x>10</x>
+      <y>70</y>
+      <width>761</width>
+      <height>471</height>
      </rect>
     </property>
     <property name="text">
@@ -33,32 +33,11 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="instructions">
-    <property name="geometry">
-     <rect>
-      <x>440</x>
-      <y>10</y>
-      <width>351</width>
-      <height>231</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Tlwg Typewriter</family>
-     </font>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::LeftToRight</enum>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;📌 Instrucciones de uso:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;1️⃣ Selecciona tu ciudad de partida.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;2️⃣ Si no está en la lista, agrégala &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;manualmente al hacer doble click.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;3️⃣ Elige tu ciudad de destino.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;4️⃣ Haz clic en &amp;quot;Calcular ruta óptima&amp;quot; &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;para encontrar el mejor camino.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="button">
     <property name="geometry">
      <rect>
-      <x>520</x>
-      <y>290</y>
+      <x>610</x>
+      <y>10</y>
       <width>161</width>
       <height>41</height>
      </rect>
@@ -67,38 +46,50 @@
      <string>Calcular ruta óptima</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="zoominbutton">
+   <widget class="QComboBox" name="comboBox">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>10</y>
-      <width>31</width>
-      <height>31</height>
+      <x>10</x>
+      <y>40</y>
+      <width>291</width>
+      <height>21</height>
      </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>../../../Downloads/WhatsApp Image 2025-02-24 at 3.53.30 PM(1).jpeg</normaloff>../../../Downloads/WhatsApp Image 2025-02-24 at 3.53.30 PM(1).jpeg</iconset>
     </property>
    </widget>
-   <widget class="QPushButton" name="zoomoutbutton">
+   <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>10</x>
       <y>10</y>
-      <width>31</width>
-      <height>31</height>
+      <width>131</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>Ciudad de origen:</string>
     </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>../../../Downloads/WhatsApp Image 2025-02-24 at 3.53.30 PM.jpeg</normaloff>../../../Downloads/WhatsApp Image 2025-02-24 at 3.53.30 PM.jpeg</iconset>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>10</y>
+      <width>131</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Ciudad destino:</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_2">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>40</y>
+      <width>291</width>
+      <height>21</height>
+     </rect>
     </property>
    </widget>
   </widget>

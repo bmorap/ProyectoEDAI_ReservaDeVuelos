@@ -2,32 +2,43 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QLabel>
 #include <QPixmap>
-#include <QVector>
+#include <QPainter>
+#include <QMap>
+#include <QPoint>
+#include <QMouseEvent>
+#include <QTransform>
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
+namespace Ui {
+class MainWindow;
+}
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-
 private slots:
-    void on_zoominbutton_clicked();
-    void on_zoomoutbutton_clicked();
+    void button(); // Tu función existente
 
 private:
     Ui::MainWindow *ui;
-    QPixmap originalPix;  // Imagen original
-    QPixmap zoomedPix;    // Imagen con zoom
-    double zoomLevel;     // Nivel de zoom
-    void applyZoom();     // Función para aplicar zoom
+    QPixmap originalPix; // Tu variable existente
+
+    // Estructura para almacenar información de ciudades
+    struct CityInfo {
+        QString name;
+        QPoint coordinates; // Coordenadas en el mapa
+    };
+
+    QMap<QString, CityInfo> cities; // Mapa para almacenar información de ciudades
+
+    // Método para actualizar la visualización del mapa
+    void updateMapDisplay();
 };
 
 #endif // MAINWINDOW_H
