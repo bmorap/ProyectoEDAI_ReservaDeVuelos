@@ -75,7 +75,7 @@ bool cargarGrafo(Graph& grafo, const string filename = "flights.txt") {
         }
         datosCiudades.push_back(make_tuple(nombre, x, y, conexiones));
     }
-    inFile.close
+    inFile.close();
     // Primero se agregan todas las ciudades (sin conexiones)
     for (const auto& data : datosCiudades) {
         string nombre;
