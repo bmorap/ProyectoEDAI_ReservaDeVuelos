@@ -1,5 +1,56 @@
 # ProyectoEDAI_ReservaDeVuelos
 
+# Algoritmo de Dijkstra (Bryan Mora C15141)
+
+El archivo `algorithm.cpp` implementa el algoritmo de Dijkstra para encontrar el camino más corto en un grafo ponderado dirigido.
+
+## Funcionamiento
+
+### 1. Inicialización
+- Se crean `dist` (distancias mínimas) y `prev` (nodos anteriores en el camino óptimo).
+- Se inicializan distancias a infinito y la de inicio a 0.
+- Se usa una cola de prioridad (`pq`) para seleccionar el nodo con menor distancia.
+
+### 2. Exploración de Nodos
+- Se extrae el nodo con menor distancia.
+- Si es el destino, el algoritmo finaliza.
+- Se actualizan distancias y nodos previos si se encuentra un camino más corto.
+- Se insertan nodos vecinos en la cola de prioridad.
+
+### 3. Construcción del Camino
+- Se reconstruye el camino desde el destino al inicio usando `prev`.
+- Se invierte para obtener el orden correcto.
+- Si el camino es inválido, se devuelve un vector vacío.
+
+### Ejemplo de Uso
+
+```cpp
+#include "graphs.h"
+#include <iostream>
+#include <vector>
+#include <string>
+
+int main() {
+    Graph graph;
+    // ... (agregar nodos y conexiones al grafo)
+    std::string start = "NewYork", finish = "SanJose";
+    std::vector<std::string> path = dijkstra(graph, start, finish);
+    
+    if (!path.empty()) {
+        std::cout << "El recorrido más rápido es: ";
+        for (const auto& node : path) std::cout << node << " ";
+        std::cout << std::endl;
+    } else {
+        std::cout << "No se encontró vuelos disponibles." << std::endl;
+    }
+    return 0;
+}
+```
+
+### Consideraciones
+- El grafo debe ser ponderado y dirigido.
+
+
 ## Manejo de archivos. (Fabián M C15386)
     Este header pretende trabajar con un archivo de texto "flights.txt" para utilizarlo a modo de base de datos.
 Esta funcionalidad permitiria al usuario guardar una sesión, imprimir el grafo dentro del archivo para su
