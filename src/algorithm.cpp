@@ -5,10 +5,16 @@
 #include <string>
 #include <limits>
 #include <algorithm>
+#include <cassert>
 
 using namespace std;
 
 vector<string> dijkstra(const Graph& graph, const string& start, const string& finish) {
+
+    // Verificar que los nodos de inicio y destino existan en el grafo
+    assert(graph.obtenerCiudades().count(start) && "El nodo de inicio no existe en el grafo");
+    assert(graph.obtenerCiudades().count(finish) && "El nodo de destino no existe en el grafo");
+
     // Mapa para almacenar la distancia mínima desde el nodo de inicio a cada nodo
     unordered_map<string, double> dist;
 
@@ -24,29 +30,27 @@ vector<string> dijkstra(const Graph& graph, const string& start, const string& f
         prev[pair.first] = "";
     }
 
-    // La distancia al nodo de inicio es 0
     dist[start] = 0.0;
-    // Insertar el nodo de inicio en la cola de prioridad
     pq.push({0.0, start});
 
-    // Mientras la cola de prioridad no esté vacía
     while (!pq.empty()) {
         // Obtener el nodo con la distancia mínima
         auto [currentDist, current] = pq.top();
         pq.pop();
 
-        // Si hemos llegado al nodo de destino, terminamos
-        if (current == finish) break;
+        if (current == finish) break; // Si hemos llegado al nodo de destino, terminamos
 
         // Explorar las conexiones del nodo actual
         for (const auto& flight : graph.obtenerCiudades().at(current).conexiones) {
             // Calcular la nueva distancia
             double newDist = currentDist + flight.peso;
+
             // Si la nueva distancia es menor que la distancia almacenada
             if (newDist < dist[flight.destino]) {
                 // Actualizar la distancia y el nodo previo
                 dist[flight.destino] = newDist;
                 prev[flight.destino] = current;
+
                 // Insertar el nodo destino en la cola de prioridad
                 pq.push({newDist, flight.destino});
             }
@@ -65,6 +69,9 @@ vector<string> dijkstra(const Graph& graph, const string& start, const string& f
     if (path.size() == 1 && path[0] != start) {
         return {}; // No path found
     }
+
+    // Sanity check: Verificar que el primer nodo del camino es el nodo de inicio
+    assert(path.empty() || path.front() == start);
 
     return path;
 }
