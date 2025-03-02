@@ -26,11 +26,15 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QLabel *image;
-    QPushButton *button;
+    QPushButton *button_calcularRutaOptima;
     QComboBox *comboBox;
     QLabel *label;
     QLabel *label_2;
     QComboBox *comboBox_2;
+    QPushButton *button_AgregarCiudad;
+    QPushButton *button_AgregarConexion;
+    QPushButton *button_EliminarCiudad;
+    QPushButton *button_EliminarVuelo;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -44,11 +48,11 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         image = new QLabel(centralwidget);
         image->setObjectName(QString::fromUtf8("image"));
-        image->setGeometry(QRect(10, 70, 761, 471));
+        image->setGeometry(QRect(10, 120, 761, 401));
         image->setScaledContents(true);
-        button = new QPushButton(centralwidget);
-        button->setObjectName(QString::fromUtf8("button"));
-        button->setGeometry(QRect(610, 10, 161, 41));
+        button_calcularRutaOptima = new QPushButton(centralwidget);
+        button_calcularRutaOptima->setObjectName(QString::fromUtf8("button_calcularRutaOptima"));
+        button_calcularRutaOptima->setGeometry(QRect(610, 10, 161, 41));
         comboBox = new QComboBox(centralwidget);
         comboBox->setObjectName(QString::fromUtf8("comboBox"));
         comboBox->setGeometry(QRect(10, 40, 291, 21));
@@ -61,6 +65,18 @@ public:
         comboBox_2 = new QComboBox(centralwidget);
         comboBox_2->setObjectName(QString::fromUtf8("comboBox_2"));
         comboBox_2->setGeometry(QRect(310, 40, 291, 21));
+        button_AgregarCiudad = new QPushButton(centralwidget);
+        button_AgregarCiudad->setObjectName(QString::fromUtf8("button_AgregarCiudad"));
+        button_AgregarCiudad->setGeometry(QRect(20, 70, 161, 41));
+        button_AgregarConexion = new QPushButton(centralwidget);
+        button_AgregarConexion->setObjectName(QString::fromUtf8("button_AgregarConexion"));
+        button_AgregarConexion->setGeometry(QRect(400, 70, 161, 41));
+        button_EliminarCiudad = new QPushButton(centralwidget);
+        button_EliminarCiudad->setObjectName(QString::fromUtf8("button_EliminarCiudad"));
+        button_EliminarCiudad->setGeometry(QRect(210, 70, 161, 41));
+        button_EliminarVuelo = new QPushButton(centralwidget);
+        button_EliminarVuelo->setObjectName(QString::fromUtf8("button_EliminarVuelo"));
+        button_EliminarVuelo->setGeometry(QRect(590, 70, 161, 41));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -79,9 +95,13 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Reserva de vuelos", nullptr));
         image->setText(QString());
-        button->setText(QCoreApplication::translate("MainWindow", "Calcular ruta \303\263ptima", nullptr));
+        button_calcularRutaOptima->setText(QCoreApplication::translate("MainWindow", "Calcular ruta \303\263ptima", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "Ciudad de origen:", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "Ciudad destino:", nullptr));
+        button_AgregarCiudad->setText(QCoreApplication::translate("MainWindow", "Agregar ciudad", nullptr));
+        button_AgregarConexion->setText(QCoreApplication::translate("MainWindow", "Agregar vuelo", nullptr));
+        button_EliminarCiudad->setText(QCoreApplication::translate("MainWindow", "Eliminar ciudad", nullptr));
+        button_EliminarVuelo->setText(QCoreApplication::translate("MainWindow", "Eliminar vuelo", nullptr));
     } // retranslateUi
 
 };

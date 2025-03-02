@@ -21,9 +21,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>70</y>
+      <y>120</y>
       <width>761</width>
-      <height>471</height>
+      <height>401</height>
      </rect>
     </property>
     <property name="text">
@@ -33,7 +33,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="button">
+   <widget class="QPushButton" name="button_calcularRutaOptima">
     <property name="geometry">
      <rect>
       <x>610</x>
@@ -90,6 +90,58 @@
       <width>291</width>
       <height>21</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="button_AgregarCiudad">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>70</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Agregar ciudad</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="button_AgregarConexion">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>70</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Agregar vuelo</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="button_EliminarCiudad">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>70</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Eliminar ciudad</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="button_EliminarVuelo">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>70</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Eliminar vuelo</string>
     </property>
    </widget>
   </widget>

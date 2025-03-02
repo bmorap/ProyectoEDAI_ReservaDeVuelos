@@ -17,7 +17,7 @@ CXX           = g++
 DEFINES       = -DQT_QML_DEBUG -DQT_LOCATION_LIB -DQT_POSITIONINGQUICK_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_QMLMODELS_LIB -DQT_QML_LIB -DQT_NETWORK_LIB -DQT_POSITIONING_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++11 -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../vuelos -I. -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtLocation -I/usr/include/x86_64-linux-gnu/qt5/QtPositioningQuick -I/usr/include/x86_64-linux-gnu/qt5/QtQuickWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtQuick -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtQmlModels -I/usr/include/x86_64-linux-gnu/qt5/QtQml -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtPositioning -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
+INCPATH       = -I../vuelos -I. -I../../src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtLocation -I/usr/include/x86_64-linux-gnu/qt5/QtPositioningQuick -I/usr/include/x86_64-linux-gnu/qt5/QtQuickWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtQuick -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtQmlModels -I/usr/include/x86_64-linux-gnu/qt5/QtQml -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtPositioning -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
 QMAKE         = /usr/lib/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -52,12 +52,28 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../vuelos/main.cpp \
+SOURCES       = ../vuelos/agregarciudad.cpp \
+		../vuelos/agregarvuelo.cpp \
+		../vuelos/eliminarciudad.cpp \
+		../vuelos/eliminarvuelo.cpp \
+		../vuelos/main.cpp \
 		../vuelos/mainwindow.cpp qrc_Maps.cpp \
+		moc_agregarciudad.cpp \
+		moc_agregarvuelo.cpp \
+		moc_eliminarciudad.cpp \
+		moc_eliminarvuelo.cpp \
 		moc_mainwindow.cpp
-OBJECTS       = main.o \
+OBJECTS       = agregarciudad.o \
+		agregarvuelo.o \
+		eliminarciudad.o \
+		eliminarvuelo.o \
+		main.o \
 		mainwindow.o \
 		qrc_Maps.o \
+		moc_agregarciudad.o \
+		moc_agregarvuelo.o \
+		moc_eliminarciudad.o \
+		moc_eliminarvuelo.o \
 		moc_mainwindow.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -150,7 +166,15 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		../vuelos/vuelos.pro ../vuelos/mainwindow.h ../vuelos/main.cpp \
+		../vuelos/vuelos.pro ../vuelos/agregarciudad.h \
+		../vuelos/agregarvuelo.h \
+		../vuelos/eliminarciudad.h \
+		../vuelos/eliminarvuelo.h \
+		../vuelos/mainwindow.h ../vuelos/agregarciudad.cpp \
+		../vuelos/agregarvuelo.cpp \
+		../vuelos/eliminarciudad.cpp \
+		../vuelos/eliminarvuelo.cpp \
+		../vuelos/main.cpp \
 		../vuelos/mainwindow.cpp
 QMAKE_TARGET  = vuelos
 DESTDIR       = 
@@ -160,7 +184,7 @@ TARGET        = vuelos
 first: all
 ####### Build rules
 
-vuelos: ui_mainwindow.h $(OBJECTS)  
+vuelos: ui_agregarciudad.h ui_agregarvuelo.h ui_eliminarciudad.h ui_eliminarvuelo.h ui_mainwindow.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../vuelos/vuelos.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -366,9 +390,9 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../vuelos/Maps.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../vuelos/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../vuelos/main.cpp ../vuelos/mainwindow.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../vuelos/mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../vuelos/agregarciudad.h ../vuelos/agregarvuelo.h ../vuelos/eliminarciudad.h ../vuelos/eliminarvuelo.h ../vuelos/mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../vuelos/agregarciudad.cpp ../vuelos/agregarvuelo.cpp ../vuelos/eliminarciudad.cpp ../vuelos/eliminarvuelo.cpp ../vuelos/main.cpp ../vuelos/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../vuelos/agregarciudad.ui ../vuelos/agregarvuelo.ui ../vuelos/eliminarciudad.ui ../vuelos/eliminarvuelo.ui ../vuelos/mainwindow.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -406,21 +430,62 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++11 -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_agregarciudad.cpp moc_agregarvuelo.cpp moc_eliminarciudad.cpp moc_eliminarvuelo.cpp moc_mainwindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp
-moc_mainwindow.cpp: ../vuelos/mainwindow.h \
+	-$(DEL_FILE) moc_agregarciudad.cpp moc_agregarvuelo.cpp moc_eliminarciudad.cpp moc_eliminarvuelo.cpp moc_mainwindow.cpp
+moc_agregarciudad.cpp: ../vuelos/agregarciudad.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/danna/ProyectoEDAI_ReservaDeVuelos/src/build-vuelos-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/danna/ProyectoEDAI_ReservaDeVuelos/src/vuelos -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtLocation -I/usr/include/x86_64-linux-gnu/qt5/QtPositioningQuick -I/usr/include/x86_64-linux-gnu/qt5/QtQuickWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtQuick -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtQmlModels -I/usr/include/x86_64-linux-gnu/qt5/QtQml -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtPositioning -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../vuelos/mainwindow.h -o moc_mainwindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/danna/ProyectoEDAI_ReservaDeVuelos/src/build-vuelos-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/danna/ProyectoEDAI_ReservaDeVuelos/src/vuelos -I/home/danna/ProyectoEDAI_ReservaDeVuelos/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtLocation -I/usr/include/x86_64-linux-gnu/qt5/QtPositioningQuick -I/usr/include/x86_64-linux-gnu/qt5/QtQuickWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtQuick -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtQmlModels -I/usr/include/x86_64-linux-gnu/qt5/QtQml -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtPositioning -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../vuelos/agregarciudad.h -o moc_agregarciudad.cpp
+
+moc_agregarvuelo.cpp: ../vuelos/agregarvuelo.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/danna/ProyectoEDAI_ReservaDeVuelos/src/build-vuelos-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/danna/ProyectoEDAI_ReservaDeVuelos/src/vuelos -I/home/danna/ProyectoEDAI_ReservaDeVuelos/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtLocation -I/usr/include/x86_64-linux-gnu/qt5/QtPositioningQuick -I/usr/include/x86_64-linux-gnu/qt5/QtQuickWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtQuick -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtQmlModels -I/usr/include/x86_64-linux-gnu/qt5/QtQml -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtPositioning -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../vuelos/agregarvuelo.h -o moc_agregarvuelo.cpp
+
+moc_eliminarciudad.cpp: ../vuelos/eliminarciudad.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/danna/ProyectoEDAI_ReservaDeVuelos/src/build-vuelos-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/danna/ProyectoEDAI_ReservaDeVuelos/src/vuelos -I/home/danna/ProyectoEDAI_ReservaDeVuelos/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtLocation -I/usr/include/x86_64-linux-gnu/qt5/QtPositioningQuick -I/usr/include/x86_64-linux-gnu/qt5/QtQuickWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtQuick -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtQmlModels -I/usr/include/x86_64-linux-gnu/qt5/QtQml -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtPositioning -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../vuelos/eliminarciudad.h -o moc_eliminarciudad.cpp
+
+moc_eliminarvuelo.cpp: ../vuelos/eliminarvuelo.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/danna/ProyectoEDAI_ReservaDeVuelos/src/build-vuelos-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/danna/ProyectoEDAI_ReservaDeVuelos/src/vuelos -I/home/danna/ProyectoEDAI_ReservaDeVuelos/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtLocation -I/usr/include/x86_64-linux-gnu/qt5/QtPositioningQuick -I/usr/include/x86_64-linux-gnu/qt5/QtQuickWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtQuick -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtQmlModels -I/usr/include/x86_64-linux-gnu/qt5/QtQml -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtPositioning -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../vuelos/eliminarvuelo.h -o moc_eliminarvuelo.cpp
+
+moc_mainwindow.cpp: ../vuelos/mainwindow.h \
+		/home/danna/ProyectoEDAI_ReservaDeVuelos/src/graphs.h \
+		../vuelos/agregarciudad.h \
+		../vuelos/agregarvuelo.h \
+		../vuelos/eliminarciudad.h \
+		../vuelos/eliminarvuelo.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/danna/ProyectoEDAI_ReservaDeVuelos/src/build-vuelos-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/danna/ProyectoEDAI_ReservaDeVuelos/src/vuelos -I/home/danna/ProyectoEDAI_ReservaDeVuelos/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtLocation -I/usr/include/x86_64-linux-gnu/qt5/QtPositioningQuick -I/usr/include/x86_64-linux-gnu/qt5/QtQuickWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtQuick -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtQmlModels -I/usr/include/x86_64-linux-gnu/qt5/QtQml -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtPositioning -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../vuelos/mainwindow.h -o moc_mainwindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h
+compiler_uic_make_all: ui_agregarciudad.h ui_agregarvuelo.h ui_eliminarciudad.h ui_eliminarvuelo.h ui_mainwindow.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h
+	-$(DEL_FILE) ui_agregarciudad.h ui_agregarvuelo.h ui_eliminarciudad.h ui_eliminarvuelo.h ui_mainwindow.h
+ui_agregarciudad.h: ../vuelos/agregarciudad.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic ../vuelos/agregarciudad.ui -o ui_agregarciudad.h
+
+ui_agregarvuelo.h: ../vuelos/agregarvuelo.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic ../vuelos/agregarvuelo.ui -o ui_agregarvuelo.h
+
+ui_eliminarciudad.h: ../vuelos/eliminarciudad.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic ../vuelos/eliminarciudad.ui -o ui_eliminarciudad.h
+
+ui_eliminarvuelo.h: ../vuelos/eliminarvuelo.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic ../vuelos/eliminarvuelo.ui -o ui_eliminarvuelo.h
+
 ui_mainwindow.h: ../vuelos/mainwindow.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic ../vuelos/mainwindow.ui -o ui_mainwindow.h
@@ -435,15 +500,53 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 ####### Compile
 
-main.o: ../vuelos/main.cpp ../vuelos/mainwindow.h
+agregarciudad.o: ../vuelos/agregarciudad.cpp ../vuelos/agregarciudad.h \
+		ui_agregarciudad.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o agregarciudad.o ../vuelos/agregarciudad.cpp
+
+agregarvuelo.o: ../vuelos/agregarvuelo.cpp ../vuelos/agregarvuelo.h \
+		ui_agregarvuelo.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o agregarvuelo.o ../vuelos/agregarvuelo.cpp
+
+eliminarciudad.o: ../vuelos/eliminarciudad.cpp ../vuelos/eliminarciudad.h \
+		ui_eliminarciudad.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o eliminarciudad.o ../vuelos/eliminarciudad.cpp
+
+eliminarvuelo.o: ../vuelos/eliminarvuelo.cpp ../vuelos/eliminarvuelo.h \
+		ui_eliminarvuelo.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o eliminarvuelo.o ../vuelos/eliminarvuelo.cpp
+
+main.o: ../vuelos/main.cpp ../vuelos/mainwindow.h \
+		/home/danna/ProyectoEDAI_ReservaDeVuelos/src/graphs.h \
+		../vuelos/agregarciudad.h \
+		../vuelos/agregarvuelo.h \
+		../vuelos/eliminarciudad.h \
+		../vuelos/eliminarvuelo.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../vuelos/main.cpp
 
 mainwindow.o: ../vuelos/mainwindow.cpp ../vuelos/mainwindow.h \
+		/home/danna/ProyectoEDAI_ReservaDeVuelos/src/graphs.h \
+		../vuelos/agregarciudad.h \
+		../vuelos/agregarvuelo.h \
+		../vuelos/eliminarciudad.h \
+		../vuelos/eliminarvuelo.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../vuelos/mainwindow.cpp
 
 qrc_Maps.o: qrc_Maps.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_Maps.o qrc_Maps.cpp
+
+moc_agregarciudad.o: moc_agregarciudad.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_agregarciudad.o moc_agregarciudad.cpp
+
+moc_agregarvuelo.o: moc_agregarvuelo.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_agregarvuelo.o moc_agregarvuelo.cpp
+
+moc_eliminarciudad.o: moc_eliminarciudad.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_eliminarciudad.o moc_eliminarciudad.cpp
+
+moc_eliminarvuelo.o: moc_eliminarvuelo.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_eliminarvuelo.o moc_eliminarvuelo.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
