@@ -1,4 +1,4 @@
-#include "graphs.h"
+#include "graph.h"
 #include <queue>
 #include <unordered_map>
 #include <vector>
@@ -9,7 +9,7 @@
 
 using namespace std;
 
-vector<string> dijkstra(const Graph& graph, const string& start, const string& finish) {
+inline vector<string> dijkstra(const Graph& graph, const string& start, const string& finish) {
 
     // Verificar que los nodos de inicio y destino existan en el grafo
     assert(graph.obtenerCiudades().count(start) && "El nodo de inicio no existe en el grafo");
@@ -22,7 +22,7 @@ vector<string> dijkstra(const Graph& graph, const string& start, const string& f
     unordered_map<string, string> prev;
     
     // Cola de prioridad para seleccionar el nodo con la distancia mínima
-    priority_queue<pair<double, string>, vector<pair<double, string>>, greater<>> pq;
+    priority_queue<pair<double, string>, vector<pair<double, string>>, greater<pair<double, string>>> pq;
 
     // Inicializar las distancias a infinito y los nodos previos a una cadena vacía
     for (const auto& pair : graph.obtenerCiudades()) {
