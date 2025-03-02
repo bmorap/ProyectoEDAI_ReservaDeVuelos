@@ -1,5 +1,16 @@
 # ProyectoEDAI_ReservaDeVuelos
 
+Este programa busca modelar un sistema de reserva de vuelos.
+
+## Estructura
+- `src/`: Archivos fuente del proyecto.
+- `build/`: Aquí se almacenarán los archivos de ejecución una vez ejecutado el make.
+
+## Uso del Makefile para compilar y ejecutar
+Este programa puede ser compilado y ejecutado a través del uso del Makefile. Es necesario posicionarse en el directorio principal.
+
+Para compilar y ejecutar se debe utilizar el comando "make all". Para limpiar su contenido se puede ejecutar "make clean".
+
 # Algoritmo de Dijkstra (Bryan Mora C15141)
 
 El archivo `algorithm.cpp` implementa el algoritmo de Dijkstra para encontrar el camino más corto en un grafo ponderado dirigido.
