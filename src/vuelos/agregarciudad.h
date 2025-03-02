@@ -12,6 +12,7 @@ class AgregarCiudad : public QDialog
     Q_OBJECT
 
 public:
+    void setCoordinates(const QPoint &point);
     explicit AgregarCiudad(QWidget *parent = nullptr);
     ~AgregarCiudad();
 
@@ -22,6 +23,7 @@ private slots:
     void on_button_Aceptar_clicked();  // Slot del botón aceptar
 
 private:
+    QPoint selectedCoordinates;
     Ui::AgregarCiudad *ui;
 };
 

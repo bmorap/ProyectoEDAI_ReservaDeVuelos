@@ -1,5 +1,6 @@
 #include "agregarciudad.h"
 #include "ui_agregarciudad.h"
+#include <QMessageBox>
 
 AgregarCiudad::AgregarCiudad(QWidget *parent) :
     QDialog(parent),
@@ -16,10 +17,24 @@ AgregarCiudad::~AgregarCiudad()
 void AgregarCiudad::on_button_Aceptar_clicked()
 {
     QString nombre = ui->lineEditCiudad->text();
-    int x = ui->lineEditCiudadX->text().toInt(); // Suponiendo que usas un QSpinBox para X
-    int y = ui->lineEditCiudadY->text().toInt(); // Suponiendo que usas un QSpinBox para Y
-
-    emit ciudadAgregada(nombre, x, y); // Emitir la señal con los valores
-    close(); // Cerrar la ventana después de aceptar
+    if (nombre.isEmpty()) {
+        QMessageBox::warning(this, "Error", "Ingrese el nombre de la ciudad.");
+        return;
+    }
+    int x = selectedCoordinates.x();
+    int y = selectedCoordinates.y();
+    
+    emit ciudadAgregada(nombre, x, y);
+    accept();
 }
 
+
+void AgregarCiudad::setCoordinates(const QPoint &point)
+{
+    selectedCoordinates = point;
+    // Mostrar las coordenadas en los QLineEdit y hacerlos de solo lectura
+    ui->lineEditCiudadX->setText(QString::number(point.x()));
+    ui->lineEditCiudadY->setText(QString::number(point.y()));
+    ui->lineEditCiudadX->setReadOnly(true);
+    ui->lineEditCiudadY->setReadOnly(true);
+}

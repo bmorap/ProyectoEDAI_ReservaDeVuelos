@@ -26,6 +26,7 @@ SOURCES += \
     agregarvuelo.cpp \
     eliminarciudad.cpp \
     eliminarvuelo.cpp \
+    modificarvuelo.cpp \
     ../main.cpp \
     mainwindow.cpp \
 
@@ -34,6 +35,7 @@ HEADERS += \
     agregarvuelo.h \
     eliminarciudad.h \
     eliminarvuelo.h \
+    modificarvuelo.h \
     mainwindow.h \
 
 FORMS += \
@@ -41,6 +43,7 @@ FORMS += \
     agregarvuelo.ui \
     eliminarciudad.ui \
     eliminarvuelo.ui \
+    modificarvuelo.ui \
     mainwindow.ui
 
 # Default rules for deployment.

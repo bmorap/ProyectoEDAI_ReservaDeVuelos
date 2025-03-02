@@ -35,6 +35,8 @@ public slots:
     void updateMapDisplay(QVector<QString> ruta); // Called after calculating route
 
 private slots:
+    void on_button_ModificarVuelo_clicked();
+    void modificarConexionDesdeVentana(QString origen, QString destino, double nuevoPeso);
     void button_calcularRutaOptima(); // Función existente
 
     void on_button_AgregarCiudad_clicked();
@@ -46,9 +48,13 @@ private slots:
     void on_button_EliminarVuelo_clicked();
     void eliminarConexionDesdeVentana5(QString origen, QString destino);
 
+protected:
+    bool eventFilter(QObject *obj, QEvent *event) override;
+
 private:
     Ui::MainWindow *ui;
     QPixmap originalPix; // Variable existente
+    bool selectingCityLocation = false;
 
     Graph grafo;  // Grafo que almacena las conexiones entre ciudades
 

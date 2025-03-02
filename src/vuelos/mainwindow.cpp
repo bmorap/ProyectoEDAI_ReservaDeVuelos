@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "agregarciudad.h"
+#include "modificarvuelo.h"
 #include "agregarvuelo.h"
 #include "eliminarciudad.h"
 #include "eliminarvuelo.h"
@@ -17,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->image->installEventFilter(this);
     this->setStyleSheet("QMainWindow { background-color:rgb(255, 255, 255); }");
     this->setFixedSize(ui->image->width() + 10, ui->image->height() + 200);
 
@@ -107,45 +109,34 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Inicializar las coordenadas de las ciudades
     // Estas son coordenadas aproximadas
-    cities["Alabama"] = CityInfo{"Alabama", QPoint(320, 290)};
-    cities["Alaska"] = CityInfo{"Alaska", QPoint(100, 100)};
-    cities["Arizona"] = CityInfo{"Arizona", QPoint(150, 250)};
-    cities["Arkansas"] = CityInfo{"Arkansas", QPoint(280, 270)};
-    cities["California"] = CityInfo{"California", QPoint(100, 200)};
-    cities["Colorado"] = CityInfo{"Colorado", QPoint(200, 220)};
-    cities["Connecticut"] = CityInfo{"Connecticut", QPoint(380, 180)};
-    cities["Delaware"] = CityInfo{"Delaware", QPoint(370, 210)};
-    cities["Florida"] = CityInfo{"Florida", QPoint(350, 320)};
-    cities["Georgia"] = CityInfo{"Georgia", QPoint(330, 280)};
-    cities["Hawaii"] = CityInfo{"Hawaii", QPoint(130, 320)};
-    cities["Idaho"] = CityInfo{"Idaho", QPoint(150, 160)};
-    cities["Illinois"] = CityInfo{"Illinois", QPoint(300, 220)};
+    cities["Alabama"] = CityInfo{"Alabama", QPoint(1632, 1118)};
+    cities["Alaska"] = CityInfo{"Alaska", QPoint(292, 1288)};
+    cities["Arizona"] = CityInfo{"Arizona", QPoint(502, 1112)};
+    cities["Arkansas"] = CityInfo{"Arkansas", QPoint(1350, 1084)};
+    cities["California"] = CityInfo{"California", QPoint(134, 730)};
+    cities["Colorado"] = CityInfo{"Colorado", QPoint(714, 728)};
+    cities["Connecticut"] = CityInfo{"Connecticut", QPoint(2152, 558)};
+    cities["Florida"] = CityInfo{"Florida", QPoint(1882, 1322)};
+
 
 
     // Agregar ciudades con coordenadas (x, y)
-    grafo.agregarCiudad("Alabama", 320, 290);
-    grafo.agregarCiudad("Alaska", 100, 100);
-    grafo.agregarCiudad("Arizona", 150, 250);
-    grafo.agregarCiudad("Arkansas", 280, 270);
-    grafo.agregarCiudad("California", 100, 200);
-    grafo.agregarCiudad("Colorado", 200, 220);
-    grafo.agregarCiudad("Connecticut", 380, 180);
-    grafo.agregarCiudad("Delaware", 370, 210);
-    grafo.agregarCiudad("Florida", 350, 320);
-    grafo.agregarCiudad("Georgia", 330, 280);
-    grafo.agregarCiudad("Hawaii", 130, 320);
-    grafo.agregarCiudad("Idaho", 150, 160);
-    grafo.agregarCiudad("Illinois", 300, 220);
+    grafo.agregarCiudad("Alabama", 1632, 1118);
+    grafo.agregarCiudad("Alaska", 292, 1288);
+    grafo.agregarCiudad("Arizona", 502, 1112);
+    grafo.agregarCiudad("Arkansas", 1350, 1084);
+    grafo.agregarCiudad("California", 134, 730);
+    grafo.agregarCiudad("Colorado", 714, 728);
+    grafo.agregarCiudad("Connecticut", 2152, 558);
+    grafo.agregarCiudad("Florida", 1882, 1322);
+
 
     // Agregar conexiones entre ciudades con su distancia
-    grafo.agregarConexion("Alabama", "Georgia", 200);
-    grafo.agregarConexion("Georgia", "Florida", 300);
     grafo.agregarConexion("Florida", "Alaska", 500);
-    grafo.agregarConexion("Idaho", "California", 100);
-    grafo.agregarConexion("Hawaii", "Georgia", 150);
-    grafo.agregarConexion("Georgia", "Idaho", 770);
-    grafo.agregarConexion("Delaware", "Colorado", 100);
-    grafo.agregarConexion("Idaho", "Illinois", 190);
+    grafo.agregarConexion("Arizona", "California", 100);
+    grafo.agregarConexion("Alabama", "Colorado", 150);
+    grafo.agregarConexion("Arkansas", "Florida", 770);
+    grafo.agregarConexion("Connecticut", "California", 190);
 
     // Conectar los eventos de cambio en los combobox
     connect(ui->comboBox, &QComboBox::currentTextChanged, this, &MainWindow::button_calcularRutaOptima);
@@ -192,11 +183,23 @@ void MainWindow::button_calcularRutaOptima()
     }
 }
 
+
+void MainWindow::on_button_AgregarCiudad_clicked()
+{
+    selectingCityLocation = true;
+    ui->statusbar->showMessage("Seleccione la ubicación en el mapa para la nueva ciudad.");
+}
+
+
+
 void MainWindow::updateMapDisplay(QVector<QString> ruta)
 {
     QPixmap mapaActualizado = originalPix.copy();
     QPainter painter(&mapaActualizado);
     painter.setRenderHint(QPainter::Antialiasing);
+    QFont font = painter.font();
+    font.setPointSize(20);  // Ajusta el tamaño según tus necesidades
+    painter.setFont(font);
 
     // Lista de ciudades originales
     QStringList ciudadesOriginales = {
@@ -219,7 +222,7 @@ void MainWindow::updateMapDisplay(QVector<QString> ruta)
         }
 
         painter.setPen(Qt::black);
-        painter.drawEllipse(pos, 8, 8);
+        painter.drawEllipse(pos, 17, 17);
         painter.drawText(pos.x() + 10, pos.y() + 5, ciudad);
     }
 
@@ -235,12 +238,8 @@ void MainWindow::updateMapDisplay(QVector<QString> ruta)
         double peso;
     };
 
-    QVector<ConexionInfo> conexiones = {
-        {"Alabama", "Georgia", 200},
-        {"Georgia", "Florida", 300},
-        {"Florida", "Texas", 500},
-        {"Idaho", "California", 1000}
-    };
+    QVector<ConexionInfo> conexiones;  // QVector vacío
+
 
     for (const auto& conexion : conexiones) {
         if (cities.contains(conexion.origen) && cities.contains(conexion.destino)) {
@@ -264,7 +263,7 @@ void MainWindow::updateMapDisplay(QVector<QString> ruta)
         }
     }
 
-    ui->image->setPixmap(mapaActualizado);
+    ui->image->setPixmap(mapaActualizado.scaled(ui->image->size(), Qt::KeepAspectRatio));
 }
 
 MainWindow::~MainWindow()
@@ -273,29 +272,20 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::on_button_AgregarCiudad_clicked()
-{
-    AgregarCiudad *ventana2 = new AgregarCiudad(this);
-
-    // Conectar la señal de la ventana secundaria con la función agregarCiudadDesdeVentana
-    connect(ventana2, &AgregarCiudad::ciudadAgregada, this, &MainWindow::agregarCiudadDesdeVentana);
-
-    ventana2->exec(); // Muestra la ventana de forma modal
-}
 
 void MainWindow::agregarCiudadDesdeVentana(QString nombre, int x, int y)
 {
     if (grafo.agregarCiudad(nombre.toStdString(), x, y)) {
-        // Agregar a los combobox
+        // Agregar a los ComboBox
         ui->comboBox->addItem(nombre);
         ui->comboBox_2->addItem(nombre);
-
-        // Agregar la ciudad al mapa de ciudades
+        
+        // Agregar la ciudad al mapa interno
         cities[nombre] = CityInfo{nombre, QPoint(x, y)};
-
-        // Redibujar el mapa para mostrar la nueva ciudad
-        updateMapDisplay(QVector<QString>()); // Redibuja sin ruta
-
+        
+        // Redibujar el mapa (asegúrate de escalar la imagen)
+        updateMapDisplay(QVector<QString>());
+        
         ui->statusbar->showMessage("Ciudad agregada exitosamente.");
     } else {
         ui->statusbar->showMessage("Error: La ciudad ya existe.");
@@ -436,6 +426,86 @@ void MainWindow::eliminarConexionDesdeVentana5(QString origen, QString destino)
     }
 }
 
+void MainWindow::on_button_ModificarVuelo_clicked()
+{
+    // Usamos las ciudades actualmente seleccionadas en los comboBox
+    QString origen = ui->comboBox->currentText();
+    QString destino = ui->comboBox_2->currentText();
+
+    if (origen == destino) {
+        ui->statusbar->showMessage("Error: Seleccione dos ciudades distintas para modificar la conexión.");
+        return;
+    }
+
+    // Abrir el diálogo para modificar el vuelo
+    ModificarVuelo *dialog = new ModificarVuelo(this);
+    dialog->setCiudades(origen, destino);
+
+    // Conectar la señal del diálogo con nuestro slot que modifica la conexión
+    connect(dialog, &ModificarVuelo::vueloModificado, this, &MainWindow::modificarConexionDesdeVentana);
+    
+    dialog->exec();
+}
+
+void MainWindow::modificarConexionDesdeVentana(QString origen, QString destino, double nuevoPeso)
+{
+    if (grafo.modificarConexion(origen.toStdString(), destino.toStdString(), nuevoPeso)) {
+        ui->statusbar->showMessage("Conexión modificada: " + origen + " -> " + destino + " Nuevo peso: " + QString::number(nuevoPeso));
+        updateMapDisplay(QVector<QString>());
+    } else {
+        ui->statusbar->showMessage("Error: No se pudo modificar la conexión de " + origen + " a " + destino);
+    }
+}
 
 
 
+
+bool MainWindow::eventFilter(QObject *obj, QEvent *event)
+{
+    if (selectingCityLocation && obj == ui->image && event->type() == QEvent::MouseButtonPress) {
+        QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
+        QPoint widgetClick = mouseEvent->pos();
+
+        // Tamaño del widget donde se muestra la imagen
+        QSize widgetSize = ui->image->size();
+        // Se escala el QPixmap original al tamaño del widget conservando el aspecto
+        QPixmap scaledPixmap = originalPix.scaled(widgetSize, Qt::KeepAspectRatio);
+        QSize scaledSize = scaledPixmap.size();
+
+        // Calcular el offset (la imagen escalada suele estar centrada en el widget)
+        int offsetX = (widgetSize.width() - scaledSize.width()) / 2;
+        int offsetY = (widgetSize.height() - scaledSize.height()) / 2;
+
+        // Calcular la posición relativa dentro de la imagen escalada
+        QPoint relativePos = widgetClick - QPoint(offsetX, offsetY);
+
+        // Verificar que el clic se haya realizado dentro del área de la imagen
+        if (relativePos.x() < 0 || relativePos.y() < 0 ||
+            relativePos.x() > scaledSize.width() || relativePos.y() > scaledSize.height())
+        {
+            ui->statusbar->showMessage("Click fuera del mapa.");
+            return true;
+        }
+
+        // Convertir la posición relativa al sistema de coordenadas del QPixmap original
+        double factorX = double(originalPix.width()) / double(scaledSize.width());
+        double factorY = double(originalPix.height()) / double(scaledSize.height());
+        QPoint originalPos(relativePos.x() * factorX, relativePos.y() * factorY);
+
+        // Termina el modo de selección
+        selectingCityLocation = false;
+
+        // Abrir el diálogo de AgregarCiudad con las coordenadas convertidas
+        AgregarCiudad *dialog = new AgregarCiudad(this);
+        dialog->setCoordinates(originalPos);
+
+        // Conectar la señal para agregar la ciudad
+        connect(dialog, &AgregarCiudad::ciudadAgregada, this, &MainWindow::agregarCiudadDesdeVentana);
+
+        if (dialog->exec() == QDialog::Accepted) {
+            // Se agregará la ciudad en agregarCiudadDesdeVentana
+        }
+        return true;
+    }
+    return QMainWindow::eventFilter(obj, event);
+}

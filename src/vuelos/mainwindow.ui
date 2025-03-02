@@ -144,7 +144,7 @@
      <string>Eliminar vuelo</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="button_CargarGrafo">
+   <widget class="QPushButton" name="button_ModificarVuelo">
     <property name="geometry">
      <rect>
       <x>743</x>
