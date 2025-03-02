@@ -1,3 +1,4 @@
+#include "../file_manager.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "agregarciudad.h"
@@ -11,6 +12,11 @@
 #include <QDebug>
 #include <QCoreApplication>
 #include <QAbstractItemView>
+#include <QFileDialog>
+#include <QFile>
+#include <QTextStream>
+#include <QMessageBox>
+
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -132,11 +138,11 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     // Agregar conexiones entre ciudades con su distancia
-    grafo.agregarConexion("Florida", "Alaska", 500);
-    grafo.agregarConexion("Arizona", "California", 100);
-    grafo.agregarConexion("Alabama", "Colorado", 150);
-    grafo.agregarConexion("Arkansas", "Florida", 770);
-    grafo.agregarConexion("Connecticut", "California", 190);
+    grafo.agregarConexion("Florida", "Alaska", 90);
+    grafo.agregarConexion("Arizona", "California", 15);
+    grafo.agregarConexion("Alabama", "Colorado", 40);
+    grafo.agregarConexion("Arkansas", "Florida", 30);
+    grafo.agregarConexion("Connecticut", "California", 95);
 
     // Conectar los eventos de cambio en los combobox
     connect(ui->comboBox, &QComboBox::currentTextChanged, this, &MainWindow::button_calcularRutaOptima);
@@ -150,35 +156,34 @@ void MainWindow::button_calcularRutaOptima()
     QString origen = ui->comboBox->currentText();
     QString destino = ui->comboBox_2->currentText();
 
+    // Verificar que ambos nodos existan en el grafo
+    if (!grafo.obtenerCiudades().count(origen.toStdString()) ||
+        !grafo.obtenerCiudades().count(destino.toStdString()))
+    {
+         ui->statusbar->showMessage("Error: La ciudad de origen o destino no existe en el grafo.");
+         return;
+    }
+
     try {
-        // Obtener la ruta óptima usando Dijkstra
         vector<string> ruta = dijkstra(grafo, origen.toStdString(), destino.toStdString());
 
-        // Verificar si se encontró una ruta
         if (ruta.empty()) {
             ui->statusbar->showMessage("No se encontró una ruta entre " + origen + " y " + destino);
             return;
         }
 
-        // Convertir la ruta de `vector<string>` a `QVector<QString>`
         QVector<QString> rutaQt;
-        for (const string& ciudad : ruta) {
+        for (const auto &ciudad : ruta) {
             rutaQt.append(QString::fromStdString(ciudad));
         }
-
-        // Mostrar la ruta en la barra de estado
-        QString rutaStr;
-        for (int i = 0; i < rutaQt.size(); i++) {
-            rutaStr += rutaQt[i];
-            if (i < rutaQt.size() - 1) {
-                rutaStr += " -> ";
-            }
-        }
+        
+        // Mostrar la ruta en la status bar
+        QString rutaStr = QStringList(rutaQt.begin(), rutaQt.end()).join(" -> ");
         ui->statusbar->showMessage("Ruta óptima: " + rutaStr);
-
+        
         // Dibujar la ruta en el mapa
         updateMapDisplay(rutaQt);
-    } catch (const std::exception& e) {
+    } catch (const std::exception &e) {
         ui->statusbar->showMessage("Error al calcular la ruta: " + QString(e.what()));
     }
 }
@@ -508,4 +513,63 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
         return true;
     }
     return QMainWindow::eventFilter(obj, event);
+}
+
+void MainWindow::on_button_GuardarGrafo_clicked()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Guardar Grafo"), "", tr("Text Files (*.txt)"));
+    if (fileName.isEmpty())
+        return;
+        
+    // Convertir a std::string y guardar
+    if (guardarGrafo(grafo, fileName.toStdString())) {
+        ui->statusbar->showMessage("Grafo guardado exitosamente en: " + fileName);
+    } else {
+        ui->statusbar->showMessage("Error al guardar el grafo.");
+    }
+}
+
+void MainWindow::on_button_CargarGrafo_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Cargar Grafo"), "", tr("Text Files (*.txt)"));
+    if (fileName.isEmpty())
+        return;
+    
+    if (!cargarGrafo(grafo, fileName.toStdString())) {
+        ui->statusbar->showMessage("Error al cargar el grafo desde: " + fileName);
+        return;
+    }
+    
+    // Desconectar señales para evitar disparos automáticos mientras se repuebla
+    disconnect(ui->comboBox, &QComboBox::currentTextChanged, this, &MainWindow::button_calcularRutaOptima);
+    disconnect(ui->comboBox_2, &QComboBox::currentTextChanged, this, &MainWindow::button_calcularRutaOptima);
+    
+    // Limpiar ComboBoxes y la estructura local de ciudades
+    cities.clear();
+    ui->comboBox->clear();
+    ui->comboBox_2->clear();
+    
+    // Repoblar los ComboBoxes a partir de las ciudades en el grafo
+    auto ciudadesMap = grafo.obtenerCiudades();
+    for (const auto &par : ciudadesMap) {
+        const auto &ciudad = par.second;
+        QString nombre = QString::fromStdString(ciudad.nombre);
+        cities[nombre] = CityInfo{nombre, QPoint(ciudad.x, ciudad.y)};
+        ui->comboBox->addItem(nombre);
+        ui->comboBox_2->addItem(nombre);
+    }
+    
+    // Establecer un valor predeterminado (si hay ciudades)
+    if(ui->comboBox->count() > 0) {
+         ui->comboBox->setCurrentIndex(0);
+         ui->comboBox_2->setCurrentIndex(0);
+    }
+    
+    // Volver a conectar las señales
+    connect(ui->comboBox, &QComboBox::currentTextChanged, this, &MainWindow::button_calcularRutaOptima);
+    connect(ui->comboBox_2, &QComboBox::currentTextChanged, this, &MainWindow::button_calcularRutaOptima);
+    
+    // Actualiza el mapa para reflejar la información cargada
+    updateMapDisplay(QVector<QString>());
+    ui->statusbar->showMessage("Grafo cargado exitosamente desde: " + fileName);
 }

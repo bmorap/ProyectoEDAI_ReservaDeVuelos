@@ -90,6 +90,10 @@ public:
         return true;
     }
 
+    void vaciarGrafo() {
+        ciudades.clear();
+    }
+    
     // Acceso a las ciudades del grafo
     const unordered_map<string, City>& obtenerCiudades() const {
         return ciudades;

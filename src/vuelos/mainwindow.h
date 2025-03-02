@@ -35,6 +35,8 @@ public slots:
     void updateMapDisplay(QVector<QString> ruta); // Called after calculating route
 
 private slots:
+    void on_button_GuardarGrafo_clicked();
+    void on_button_CargarGrafo_clicked();
     void on_button_ModificarVuelo_clicked();
     void modificarConexionDesdeVentana(QString origen, QString destino, double nuevoPeso);
     void button_calcularRutaOptima(); // Función existente
