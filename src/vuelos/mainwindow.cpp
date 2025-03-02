@@ -32,8 +32,7 @@ MainWindow::MainWindow(QWidget *parent)
     // Lista de estados de EE. UU.
     QStringList estados = {
         "Alabama", "Alaska", "Arizona", "Arkansas", "California",
-        "Colorado", "Connecticut", "Delaware", "Florida", "Georgia",
-        "Hawaii", "Idaho", "Illinois"
+        "Colorado", "Connecticut", "Florida"
     };
 
     // Agregar los estados al combo box
@@ -203,7 +202,7 @@ void MainWindow::updateMapDisplay(QVector<QString> ruta)
     QPainter painter(&mapaActualizado);
     painter.setRenderHint(QPainter::Antialiasing);
     QFont font = painter.font();
-    font.setPointSize(20);  // Ajusta el tamaño según tus necesidades
+    font.setPointSize(20);
     painter.setFont(font);
 
     // Lista de ciudades originales
@@ -217,15 +216,7 @@ void MainWindow::updateMapDisplay(QVector<QString> ruta)
     for (const auto& ciudad : cities.keys()) {
         QPoint pos = cities[ciudad].coordinates;
 
-        // Si es una ciudad original, dibujarla en rojo
-        if (ciudadesOriginales.contains(ciudad)) {
-            painter.setBrush(QBrush(Qt::red));
-        }
-        // Si es una ciudad agregada posteriormente, dibujarla en verde
-        else {
-            painter.setBrush(QBrush(Qt::green));
-        }
-
+        painter.setBrush(QBrush(Qt::red));
         painter.setPen(Qt::black);
         painter.drawEllipse(pos, 17, 17);
         painter.drawText(pos.x() + 10, pos.y() + 5, ciudad);
@@ -351,9 +342,11 @@ void MainWindow::agregarConexionDesdeVentana3(QString origen, QString destino, d
             else {
                 painter.setBrush(QBrush(Qt::green));
             }
-
+            QFont font = painter.font();
+            font.setPointSize(20);
+            painter.setFont(font);
             painter.setPen(Qt::black);
-            painter.drawEllipse(pos, 8, 8);
+            painter.drawEllipse(pos, 17, 17);
             painter.drawText(pos.x() + 10, pos.y() + 5, ciudad);
         }
 
@@ -369,7 +362,7 @@ void MainWindow::agregarConexionDesdeVentana3(QString origen, QString destino, d
             painter.drawText(midPoint, QString::number(peso));
         }
 
-        ui->image->setPixmap(mapaActualizado);
+        ui->image->setPixmap(mapaActualizado.scaled(ui->image->size(), Qt::KeepAspectRatio));
     } else {
         ui->statusbar->showMessage("Error: No se pudo agregar la conexión.");
     }
