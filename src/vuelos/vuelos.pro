@@ -10,6 +10,13 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 CONFIG += c++11
 CONFIG += c++17
 
+# Configurar salida en build/
+DESTDIR = ../../build
+OBJECTS_DIR = ../../build
+MOC_DIR = ../../build
+RCC_DIR = ../../build
+UI_DIR = ../../build
+
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
@@ -19,7 +26,8 @@ SOURCES += \
     agregarvuelo.cpp \
     eliminarciudad.cpp \
     eliminarvuelo.cpp \
-    main.cpp \
+    modificarvuelo.cpp \
+    ../main.cpp \
     mainwindow.cpp \
 
 HEADERS += \
@@ -27,6 +35,7 @@ HEADERS += \
     agregarvuelo.h \
     eliminarciudad.h \
     eliminarvuelo.h \
+    modificarvuelo.h \
     mainwindow.h \
 
 FORMS += \
@@ -34,6 +43,7 @@ FORMS += \
     agregarvuelo.ui \
     eliminarciudad.ui \
     eliminarvuelo.ui \
+    modificarvuelo.ui \
     mainwindow.ui
 
 # Default rules for deployment.
