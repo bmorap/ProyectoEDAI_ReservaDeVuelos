@@ -9,6 +9,7 @@
 #include <QDir>
 #include <QDebug>
 #include <QCoreApplication>
+#include <QAbstractItemView>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -16,6 +17,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->setStyleSheet("QMainWindow { background-color:rgb(255, 255, 255); }");
+    this->setFixedSize(ui->image->width() + 10, ui->image->height() + 200);
+
 
     // Lista de estados de EE. UU.
     QStringList estados = {
@@ -27,9 +31,65 @@ MainWindow::MainWindow(QWidget *parent)
     // Agregar los estados al combo box
     ui->comboBox->addItems(estados);
     ui->comboBox_2->addItems(estados);
+    ui->label->setStyleSheet("font-size: 11pt;");
+    ui->label_2->setStyleSheet("font-size: 11pt;");
+    QFont font("Helvetica", 11);
+    qApp->setFont(font);
+    qApp->setStyleSheet(
+        "QPushButton {"
+        "   background-color: #3498db;"
+        "   color: white;"
+        "   border: none;"
+        "   border-radius: 5px;"
+        "   font-size: 12pt;"
+        "}"
+        "QPushButton:hover {"
+        "   background-color: #2980b9;"
+        "}"
+    );
+
+    ui->comboBox->setStyleSheet(
+        "QComboBox {"
+        "    background-color: #ffffff;"
+        "    border: 2px solid #2980b9;"
+        "    border-radius: 4px;"
+        "    padding: 2px;"
+        "    font: 12pt 'Helvetica';"
+        "    color: #222;"
+        "}"
+        "QComboBox:hover {"
+        "    background-color: #f0f0f0"  // Fondo al pasar el cursor sobre el combo
+        "}"
+        "QComboBox::drop-down {"
+        "    subcontrol-origin: padding;"
+        "    subcontrol-position: top right;"
+        "    width: 30px;"
+        "    border-left: 2px solid #2980b9;"
+        "}"
+    );
+    
+    ui->comboBox_2->setStyleSheet(
+        "QComboBox {"
+        "    background-color: #ffffff;"
+        "    border: 2px solid #2980b9;"
+        "    border-radius: 4px;"
+        "    padding: 2px;"
+        "    font: 12pt 'Helvetica';"
+        "    color: #222;"
+        "}"
+        "QComboBox:hover {"
+        "    background-color: #f0f0f0"  // Fondo al pasar el cursor sobre el combo
+        "}"
+        "QComboBox::drop-down {"
+        "    subcontrol-origin: padding;"
+        "    subcontrol-position: top right;"
+        "    width: 30px;"
+        "    border-left: 2px solid #2980b9;"
+        "}"
+    );
 
         // Construir la ruta correcta a la imagen basada en la ubicación del ejecutable
-    QString imagePath = QDir(QCoreApplication::applicationDirPath()).filePath("../src/vuelos/map.jpg");
+    QString imagePath = QDir(QCoreApplication::applicationDirPath()).filePath("../src/vuelos/usamap.jpg");
 
     // Verificar si la imagen existe antes de intentar cargarla
     if (!QFile::exists(imagePath)) {
