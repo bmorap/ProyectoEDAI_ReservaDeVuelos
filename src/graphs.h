@@ -10,7 +10,7 @@
 
 using namespace std;
 
-// Estructura que representa un vuelo
+// Estructura que representa un vuelo (conexión)
 struct Flight {
     string destino;  // Ciudad destino
     double peso;     // Peso
