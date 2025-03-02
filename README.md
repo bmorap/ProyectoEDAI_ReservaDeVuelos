@@ -1,4 +1,8 @@
 # ProyectoEDAI_ReservaDeVuelos
+- Fabián Muñoz C15386
+- Bryan Mora C15141
+- Leonardo Serrano
+- Danna
 
 Este programa busca modelar un sistema de reserva de vuelos.
 
