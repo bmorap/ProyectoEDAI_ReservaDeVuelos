@@ -1,6 +1,6 @@
 #include "eliminarvuelo.h"
 #include "ui_eliminarvuelo.h"
-#include "/home/danna/ProyectoEDAI_ReservaDeVuelos/src/graphs.h"
+#include "../graphs.h"
 
 EliminarVuelo::EliminarVuelo(QWidget *parent, Graph &graphRef) :
     QDialog(parent),

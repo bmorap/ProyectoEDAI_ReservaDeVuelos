@@ -1,8 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "/home/danna/ProyectoEDAI_ReservaDeVuelos/src/graphs.h"  // Incluye la clase de grafo
-#include "/home/danna/ProyectoEDAI_ReservaDeVuelos/src/algorithm.cpp"
+#include "../graphs.h"  // Incluye la clase de grafo
+#include "../algorithm.cpp"
 #include <QMainWindow>
 #include <QLabel>
 #include <QPixmap>

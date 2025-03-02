@@ -2,7 +2,7 @@
 #define ELIMINARVUELO_H
 
 #include <QDialog>
-#include "/home/danna/ProyectoEDAI_ReservaDeVuelos/src/graphs.h"
+#include "../graphs.h"
 
 namespace Ui {
 class EliminarVuelo;

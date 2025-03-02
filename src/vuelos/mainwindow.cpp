@@ -6,6 +6,9 @@
 #include "eliminarvuelo.h"
 #include <QMouseEvent>
 #include <QTransform>
+#include <QDir>
+#include <QDebug>
+#include <QCoreApplication>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -25,8 +28,21 @@ MainWindow::MainWindow(QWidget *parent)
     ui->comboBox->addItems(estados);
     ui->comboBox_2->addItems(estados);
 
-    // Cargar la imagen principal
-    originalPix.load("/home/danna/ProyectoEDAI_ReservaDeVuelos/mapa.jpg");
+        // Construir la ruta correcta a la imagen basada en la ubicación del ejecutable
+    QString imagePath = QDir(QCoreApplication::applicationDirPath()).filePath("../src/vuelos/map.jpg");
+
+    // Verificar si la imagen existe antes de intentar cargarla
+    if (!QFile::exists(imagePath)) {
+        qDebug() << "Error: No se encuentra la imagen en:" << imagePath;
+    } else {
+        if (!originalPix.load(imagePath)) {
+            qDebug() << "Error: No se pudo cargar la imagen.";
+        } else {
+            qDebug() << "Imagen cargada correctamente desde:" << imagePath;
+            ui->image->setPixmap(originalPix.scaled(ui->image->size(), Qt::KeepAspectRatio));
+        }
+    }
+    
     ui->image->setPixmap(originalPix);
 
     // Inicializar las coordenadas de las ciudades
