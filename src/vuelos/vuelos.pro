@@ -8,6 +8,7 @@ INCLUDEPATH += /home/danna/ProyectoEDAI_ReservaDeVuelos/src
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
+CONFIG += c++17
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.

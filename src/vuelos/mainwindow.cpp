@@ -46,13 +46,12 @@ MainWindow::MainWindow(QWidget *parent)
     cities["Illinois"] = CityInfo{"Illinois", QPoint(300, 220)};
 
 
-
     // Agregar ciudades con coordenadas (x, y)
     grafo.agregarCiudad("Alabama", 320, 290);
     grafo.agregarCiudad("Alaska", 100, 100);
     grafo.agregarCiudad("Arizona", 150, 250);
     grafo.agregarCiudad("Arkansas", 280, 270);
-    grafo.agregarCiudad("California", 100, 2200);
+    grafo.agregarCiudad("California", 100, 200);
     grafo.agregarCiudad("Colorado", 200, 220);
     grafo.agregarCiudad("Connecticut", 380, 180);
     grafo.agregarCiudad("Delaware", 370, 210);
@@ -65,8 +64,12 @@ MainWindow::MainWindow(QWidget *parent)
     // Agregar conexiones entre ciudades con su distancia
     grafo.agregarConexion("Alabama", "Georgia", 200);
     grafo.agregarConexion("Georgia", "Florida", 300);
-    grafo.agregarConexion("Florida", "Texas", 500);
-    grafo.agregarConexion("Texas", "California", 1000);
+    grafo.agregarConexion("Florida", "Alaska", 500);
+    grafo.agregarConexion("Idaho", "California", 100);
+    grafo.agregarConexion("Hawaii", "Georgia", 150);
+    grafo.agregarConexion("Georgia", "Idaho", 770);
+    grafo.agregarConexion("Delaware", "Colorado", 100);
+    grafo.agregarConexion("Idaho", "Illinois", 190);
 
     // Conectar los eventos de cambio en los combobox
     connect(ui->comboBox, &QComboBox::currentTextChanged, this, &MainWindow::button_calcularRutaOptima);
@@ -79,19 +82,38 @@ void MainWindow::button_calcularRutaOptima()
 {
     QString origen = ui->comboBox->currentText();
     QString destino = ui->comboBox_2->currentText();
-/*
-    // Obtener la ruta óptima usando Dijkstra
-    //vector<string> ruta = dijkstra(grafo, origen.toStdString(), destino.toStdString());
 
-    // Convertir la ruta de `vector<string>` a `QVector<QString>`
-    QVector<QString> rutaQt;
-    //for (const string& ciudad : ruta) {
-        rutaQt.append(QString::fromStdString(ciudad));
+    try {
+        // Obtener la ruta óptima usando Dijkstra
+        vector<string> ruta = dijkstra(grafo, origen.toStdString(), destino.toStdString());
+
+        // Verificar si se encontró una ruta
+        if (ruta.empty()) {
+            ui->statusbar->showMessage("No se encontró una ruta entre " + origen + " y " + destino);
+            return;
+        }
+
+        // Convertir la ruta de `vector<string>` a `QVector<QString>`
+        QVector<QString> rutaQt;
+        for (const string& ciudad : ruta) {
+            rutaQt.append(QString::fromStdString(ciudad));
+        }
+
+        // Mostrar la ruta en la barra de estado
+        QString rutaStr;
+        for (int i = 0; i < rutaQt.size(); i++) {
+            rutaStr += rutaQt[i];
+            if (i < rutaQt.size() - 1) {
+                rutaStr += " -> ";
+            }
+        }
+        ui->statusbar->showMessage("Ruta óptima: " + rutaStr);
+
+        // Dibujar la ruta en el mapa
+        updateMapDisplay(rutaQt);
+    } catch (const std::exception& e) {
+        ui->statusbar->showMessage("Error al calcular la ruta: " + QString(e.what()));
     }
-
-    // Dibujar la ruta en el mapa
-    updateMapDisplay(rutaQt);
-    */
 }
 
 void MainWindow::updateMapDisplay(QVector<QString> ruta)
@@ -106,28 +128,8 @@ void MainWindow::updateMapDisplay(QVector<QString> ruta)
         "Colorado", "Connecticut", "Delaware", "Florida", "Georgia",
         "Hawaii", "Idaho", "Illinois"
     };
-/*
-    // Dibujar todas las conexiones primero
-    painter.setPen(QPen(Qt::darkGray, 2, Qt::DashLine));
 
-    // Obtener todas las conexiones y dibujarlas
-    auto conexiones = grafo.obtenerTodasLasConexiones();
-    for (const auto& conexion : conexiones) {
-        QString origen = QString::fromStdString(conexion.origen);
-        QString destino = QString::fromStdString(conexion.destino);
-
-        if (cities.contains(origen) && cities.contains(destino)) {
-            QPoint p1 = cities[origen].coordinates;
-            QPoint p2 = cities[destino].coordinates;
-            painter.drawLine(p1, p2);
-
-            // Dibujar el peso de la conexión
-            QPoint midPoint((p1.x() + p2.x()) / 2, (p1.y() + p2.y()) / 2);
-            painter.drawText(midPoint, QString::number(conexion.peso));
-        }
-    }
-*/
-    // Dibujar todas las ciudades
+    // Dibujar todas las ciudades primero
     for (const auto& ciudad : cities.keys()) {
         QPoint pos = cities[ciudad].coordinates;
 
@@ -143,6 +145,37 @@ void MainWindow::updateMapDisplay(QVector<QString> ruta)
         painter.setPen(Qt::black);
         painter.drawEllipse(pos, 8, 8);
         painter.drawText(pos.x() + 10, pos.y() + 5, ciudad);
+    }
+
+    // Dibujar conexiones conocidas manualmente
+    // Este es un workaround ya que no podemos obtener todas las conexiones del grafo
+    painter.setPen(QPen(Qt::darkGray, 2, Qt::DashLine));
+
+    // Lista de conexiones conocidas
+    // Puedes añadir más conexiones a esta lista conforme se vayan agregando al grafo
+    struct ConexionInfo {
+        QString origen;
+        QString destino;
+        double peso;
+    };
+
+    QVector<ConexionInfo> conexiones = {
+        {"Alabama", "Georgia", 200},
+        {"Georgia", "Florida", 300},
+        {"Florida", "Texas", 500},
+        {"Idaho", "California", 1000}
+    };
+
+    for (const auto& conexion : conexiones) {
+        if (cities.contains(conexion.origen) && cities.contains(conexion.destino)) {
+            QPoint p1 = cities[conexion.origen].coordinates;
+            QPoint p2 = cities[conexion.destino].coordinates;
+            painter.drawLine(p1, p2);
+
+            // Dibujar el peso de la conexión
+            QPoint midPoint((p1.x() + p2.x()) / 2, (p1.y() + p2.y()) / 2);
+            painter.drawText(midPoint, QString::number(conexion.peso));
+        }
     }
 
     // Dibujar la ruta calculada (si hay)

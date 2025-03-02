@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include "/home/danna/ProyectoEDAI_ReservaDeVuelos/src/graphs.h"  // Incluye la clase de grafo
-// #include "/home/danna/ProyectoEDAI_ReservaDeVuelos/src/algorithm.cpp"
+#include "/home/danna/ProyectoEDAI_ReservaDeVuelos/src/algorithm.cpp"
 #include <QMainWindow>
 #include <QLabel>
 #include <QPixmap>
@@ -51,6 +51,7 @@ private:
     QPixmap originalPix; // Variable existente
 
     Graph grafo;  // Grafo que almacena las conexiones entre ciudades
+
     // Estructura para almacenar información de ciudades
     struct CityInfo {
         QString name;
