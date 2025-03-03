@@ -10,12 +10,12 @@ Este programa busca modelar un sistema de reserva de vuelos.
 - `src/`: Archivos fuente del proyecto.
 - `build/`: Aquí se almacenarán los archivos de ejecución una vez ejecutado el make.
 
-## Uso del Makefile para compilar y ejecutar
+# Uso del Makefile para compilar y ejecutar
 Este programa puede ser compilado y ejecutado a través del uso del Makefile. Es necesario posicionarse en el directorio principal.
 
 Para compilar y ejecutar se debe utilizar el comando **"make all"**. Para limpiar su contenido se puede ejecutar "make clean".
 
-# Algoritmo de Dijkstra (Bryan Mora C15141)
+## Algoritmo de Dijkstra (Bryan Mora C15141)
 
 El archivo `algorithm.cpp` implementa el algoritmo de Dijkstra para encontrar el camino más corto en un grafo ponderado dirigido.
 
@@ -63,7 +63,7 @@ int main() {
 ```
 
 ### Consideraciones
-- El grafo debe ser ponderado y dirigido.
+- El grafo es ponderado y dirigido.
 
 
 ## Manejo de archivos. (Fabián M C15386)
@@ -90,6 +90,39 @@ vo.
 - [StackOverflow](https:stackoverflowcomquestions66552813how-to-read-file-into-vector-of-tuple)
 - [ChatGPT](https://chatgpt.com/share/67c27693-a118-800d-b830-fb1e3dd6ca29)
 
+
+## Clase Grafo. (Leonardo Serrano C17484)
+
+Ester archivo header pretende definir la estructura y funcionalidades de un grafo dirigido para representar una red de vuelos entre ciudades.
+
+### Características
+**Modelado de Ciudades y Vuelos:**
+Cada ciudad se modela con un nombre, coordenadas y una lista de vuelos (conexiones). Cada vuelo contiene la ciudad destino y un peso que puede representar, por ejemplo, el costo o la distancia.
+
+**Gestión del Grafo:**
+Se proporcionan métodos para agregar y eliminar ciudades, así como para agregar, modificar y eliminar conexiones entre ellas. También se incluye una función para vaciar el grafo por completo.
+
+**Uso de Contenedores STL:**
+Se utilizan estructuras como unordered_map para almacenar las ciudades y vector para gestionar las conexiones, aprovechando las ventajas de la biblioteca estándar de C++.
+
+### Métodos Principales
+**agregarCiudad:**
+Añade una nueva ciudad al grafo, evitando duplicados.
+
+**eliminarCiudad:**
+Elimina una ciudad y todas las conexiones asociadas, asegurando la integridad del grafo.
+
+**agregarConexion:**
+Crea un vuelo entre dos ciudades, añadiendo la conexión en la ciudad de origen.
+
+**modificarConexion:**
+Permite actualizar el peso de un vuelo existente.
+
+**eliminarConexion:**
+Borra una conexión específica entre dos ciudades.
+
+**vaciarGrafo:**
+Elimina todas las ciudades y conexiones del grafo, reiniciando su estado.
 
 ## Interfaz gráfica. (Danna Guevara C23562)
     Esta interfaz gráfica pretende unificar los códigos planteados con el fin de realizar un sistema de reserva de vuelos que permita a los usuarios interactuar con un mapa.
