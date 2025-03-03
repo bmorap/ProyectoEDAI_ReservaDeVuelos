@@ -89,3 +89,62 @@ vo.
 - [Files_YT](https://www.youtube.com/watch?=Cz4fl-TUjVkt=225sab_channel=CalebCurry)
 - [StackOverflow](https:stackoverflowcomquestions66552813how-to-read-file-into-vector-of-tuple)
 - [ChatGPT](https://chatgpt.com/share/67c27693-a118-800d-b830-fb1e3dd6ca29)
+
+
+## Interfaz gráfica. (Danna Guevara C23562)
+    Esta interfaz gráfica pretende unificar los códigos planteados con el fin de realizar un sistema de reserva de vuelos que permita a los usuarios interactuar con un mapa.
+
+## Funcionalidades Principales
+## Características
+- Agregar, eliminar y modificar ciudades y vuelos.
+- Calcular rutas óptimas entre ciudades mediante el algoritmo de Dijkstra.
+- Visualización de la red de vuelos en un mapa interactivo.
+- Cargar y guardar la información del grafo desde/hacia archivos.
+
+## Interfaz Gráfica
+La interfaz incluye:
+- Menús desplegables para seleccionar ciudades de origen y destino.
+- Botones para gestionar ciudades y vuelos.
+- Botón para calcular la ruta óptima.
+- Botones para guardar y cargar grafos.
+- Barra de estado para mostrar mensajes e información.
+- Área de visualización del mapa con ciudades y conexiones.
+
+### Manejo de Ciudades y Vuelos
+- **Agregar Ciudad**: Se agrega una nueva ciudad ingresando un nombre y seleccionando una ubicación en el mapa.
+- **Eliminar Ciudad**: Se elimina una ciudad y sus conexiones asociadas.
+- **Agregar Vuelo**: Se establece una conexión entre dos ciudades con un peso específico.
+- **Modificar Vuelo**: Se cambia el peso de una conexión existente.
+- **Eliminar Vuelo**: Se elimina una conexión entre dos ciudades.
+- **Cargar Grafo**: Se carga la red de vuelos desde un archivo.
+- **Guardar Grafo**: Se guarda la red de vuelos en un archivo.
+
+### Cálculo de Ruta Óptima
+El método `button_calcularRutaOptima()` usa el algoritmo de Dijkstra para calcular la ruta más eficiente entre dos ciudades seleccionadas.
+
+### Selección de ubicación de ciudad
+El método `eventFilter()` detecta cuando el usuario hace clic en la imagen del mapa mientras está en modo de selección de ubicación de ciudad, si el clic es válido, convierte las coordenadas al sistema original y abre una ventana para agregar una ciudad en esa ubicación. Además, conecta la señal ciudadAgregada para que, si el usuario confirma la acción, la ciudad se agregue a través de la función `agregarCiudadDesdeVentana()`.
+
+### Visualización del Mapa
+El método `updateMapDisplay()` actualiza la interfaz cada vez que se necesite según lo que se seleccione con ciudades vistas como círculos rojos con etiquetas, las conexiones o vuelos mostrados como líneas entre ciudades, las rutas óptimas resaltadas en azul y los pesos de las conexiones visibles.
+
+## Estructura del Proyecto
+### Archivos Incluidos
+- `file_manager.h`: Funciones para guardar y cargar grafos.
+- `graphs.h`: Implementación de la estructura del grafo.
+- `mainwindow.h`: Definición de la clase `MainWindow`.
+- `ui_mainwindow.h`: Generado por Qt Designer.
+
+### Clases de tipo .h
+- `AgregarCiudad`: Agrega una nueva ciudad.
+- `agregarvuelo`: Agrega una nueva conexión entre ciudades.
+- `ModificarVuelo`: Modifica la información de un vuelo.
+- `eliminarciudad`: Elimina una ciudad existente.
+- `EliminarVuelo`: Elimina una conexión entre ciudades.
+
+    Dentro de los recursos utilizados son los siguientes:
+- [Youtube](https://www.youtube.com/watch?v=V4ACsfbKtpU)
+- [Youtube](https://www.youtube.com/watch?v=cnFItSiEJTU&t=467s)
+- [Youtube](https://www.youtube.com/watch?v=64QRNUg5_YA)
+- [Youtube](https://www.youtube.com/watch?v=h56hO1Wqa20)
+- [Youtube](https://www.cppbuzz.com/qt/projects/c++-qt-gui-project-on-movie-ticket-booking)
