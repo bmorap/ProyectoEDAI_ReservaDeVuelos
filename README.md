@@ -15,9 +15,43 @@ Este programa puede ser compilado y ejecutado a través del uso del Makefile. Es
 
 Para compilar y ejecutar se debe utilizar el comando `make all`. Para limpiar su contenido se puede ejecutar `make clean`.
 
+## Dependencias
+Para ejecutar este programa puede ser necesario instalar algunas dependencias, las cuales se pueden instalar de la siguiente forma:
+
+```
+sudo apt update
+sudo apt install -y \
+    qtbase5-dev \
+    qtchooser \
+    qt5-qmake \
+    qttools5-dev-tools \
+    qtdeclarative5-dev \
+    qtlocation5-dev \
+    qtpositioning5-dev \
+    qml-module-qtpositioning \
+    qml-module-qtquick-controls \
+    qml-module-qtquick-controls2 \
+    qml-module-qtquick-dialogs \
+    qml-module-qtquick-layouts \
+    qml-module-qtquick-window2 \
+    qml-module-qtquick2 \
+    libqt5quickwidgets5 \
+    libqt5quick5 \
+    libqt5qml5 \
+    libqt5gui5 \
+    libqt5network5 \
+    libqt5widgets5 \
+    libqt5core5a \
+    libqt5positioning5 \
+    libgl1-mesa-dev \
+    libpthread-stubs0-dev \
+    build-essential
+
+```
+
 # Lógica y contenido
 
-## Algoritmo de Dijkstra (Bryan Mora C15141)
+## Algoritmo de Dijkstra. (Bryan Mora C15141)
 
 El archivo `algorithm.cpp` implementa el algoritmo de Dijkstra para encontrar el camino más corto en un grafo ponderado dirigido.
 
