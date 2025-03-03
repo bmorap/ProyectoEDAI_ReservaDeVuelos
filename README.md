@@ -2,7 +2,7 @@
 - Fabián Muñoz C15386
 - Bryan Mora C15141
 - Leonardo Serrano C17484
-- Danna
+- Danna Guevara C23562
 
 Este programa busca modelar un sistema de reserva de vuelos.
 
