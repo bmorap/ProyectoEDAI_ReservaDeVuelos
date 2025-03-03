@@ -15,6 +15,8 @@ Este programa puede ser compilado y ejecutado a través del uso del Makefile. Es
 
 Para compilar y ejecutar se debe utilizar el comando **"make all"**. Para limpiar su contenido se puede ejecutar "make clean".
 
+# Lógica y contenido
+
 ## Algoritmo de Dijkstra (Bryan Mora C15141)
 
 El archivo `algorithm.cpp` implementa el algoritmo de Dijkstra para encontrar el camino más corto en un grafo ponderado dirigido.
