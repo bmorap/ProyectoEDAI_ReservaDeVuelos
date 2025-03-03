@@ -108,22 +108,22 @@ Se proporcionan métodos para agregar y eliminar ciudades, así como para agrega
 Se utilizan estructuras como unordered_map para almacenar las ciudades y vector para gestionar las conexiones, aprovechando las ventajas de la biblioteca estándar de C++.
 
 ### Métodos Principales
-**agregarCiudad:**
+`agregarCiudad:`
 Añade una nueva ciudad al grafo, evitando duplicados.
 
-**eliminarCiudad:**
+`eliminarCiudad:`
 Elimina una ciudad y todas las conexiones asociadas, asegurando la integridad del grafo.
 
-**agregarConexion:**
+`agregarConexion:`
 Crea un vuelo entre dos ciudades, añadiendo la conexión en la ciudad de origen.
 
-**modificarConexion:**
+`modificarConexion:`
 Permite actualizar el peso de un vuelo existente.
 
-**eliminarConexion:**
+`eliminarConexion:`
 Borra una conexión específica entre dos ciudades.
 
-**vaciarGrafo:**
+`vaciarGrafo:`
 Elimina todas las ciudades y conexiones del grafo, reiniciando su estado.
 
 ## Interfaz gráfica. (Danna Guevara C23562)
