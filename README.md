@@ -39,31 +39,6 @@ El archivo `algorithm.cpp` implementa el algoritmo de Dijkstra para encontrar el
 - Se invierte para obtener el orden correcto.
 - Si el camino es inválido, se devuelve un vector vacío.
 
-### Ejemplo de Uso
-
-```cpp
-#include "graphs.h"
-#include <iostream>
-#include <vector>
-#include <string>
-
-int main() {
-    Graph graph;
-    // ... (agregar nodos y conexiones al grafo)
-    std::string start = "NewYork", finish = "SanJose";
-    std::vector<std::string> path = dijkstra(graph, start, finish);
-    
-    if (!path.empty()) {
-        std::cout << "El recorrido más rápido es: ";
-        for (const auto& node : path) std::cout << node << " ";
-        std::cout << std::endl;
-    } else {
-        std::cout << "No se encontró vuelos disponibles." << std::endl;
-    }
-    return 0;
-}
-```
-
 ### Consideraciones
 - El grafo es ponderado y dirigido.
 
